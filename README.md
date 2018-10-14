@@ -77,3 +77,42 @@ After a client has been configured to use the DNS Shield server as their first D
 ![](images/2018-10-14-13-00-35.png)
 
 If you want to rollout DNS Shield to all clients on specific subnets on your entire network you can adjust your DHCP server to automatically configure clients DNS configuration.
+
+## Blacklist Updates
+
+The upstream site typically updates the blacklists once a day. The install script created a cron job to check for and apply updates every six hours.
+
+## Blocking Porn, Gambling, Fake News, or Social Media Content
+
+By default DNS Shield is only protecting from ads, tracking and malware sites. If you'd like to add protection from additional types of content such as porn, fake news, gambling or and social media you are configure CoreDNS to use an alternate blacklist. All blacklist contain ads/tracking/malware and are available in the following combinations:
+
+- ads+malware+fakenews:  /etc/coredns/hosts/alternates/fakenews/hosts
+- ads+malware+fakenews+gambling: /etc/coredns/hosts/alternates/fakenews-gambling/hosts
+- ads+malware+fakenews+gambling+porn: /etc/coredns/hosts/alternates/fakenews-gambling-porn/hosts
+- ads+malware+fakenews+gambling+porn + social: /etc/coredns/hosts/alternates/fakenews-gambling-porn-social/hosts
+- ads+malware+fakenews+gambling+social: /etc/coredns/hosts/alternates/fakenews-gambling-social/hosts
+- ads+malware+fakenews+porn: /etc/coredns/hosts/alternates/fakenews-porn/hosts
+- ads+malware+fakenews+porn+social: /etc/coredns/hosts/alternates/fakenews-porn-social/hosts
+- ads+malware+fakenews+social: /etc/coredns/hosts/alternates/fakenews-social/hosts
+- ads+malware+gambling: /etc/coredns/hosts/alternates//hosts
+- ads+malware+gambling+porn: /etc/coredns/hosts/alternates/gambling/hosts
+- ads+malware+gambling+porn+social: /etc/coredns/hosts/alternates/gambling-porn-social/hosts
+- ads+malware+gambling+social: /etc/coredns/hosts/alternates/gambling-social/hosts
+- ads+malware+porn: /etc/coredns/hosts/alternates/porn/hosts
+- ads+malware+porn+social: /etc/coredns/hosts/alternates/porn-social/hosts
+- ads+malware+social: /etc/coredns/hosts/alternates/social/hosts
+
+To use a different blacklist, edit the CoreDNS configuration file (/etc/coredns/Corefile) and edit the "hosts" line to point to the correct hosts file. For example here we are adding porn content filtering:
+
+```bind
+.:53 {
+    prometheus 0.0.0.0:9153
+    bind 0.0.0.0
+    hosts /etc/coredns/hosts/alternates/porn/hosts {
+      fallthrough
+    }
+    proxy . 140.107.42.11:53 140.107.117.11:53
+}
+```
+
+After making changes to the CoreDNS server you'll need to restart the service.
