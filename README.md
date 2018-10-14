@@ -3,13 +3,13 @@
 
 **A simple DNS firewall to block ads, tracking and malware.**
 
-This is a simple system that uses the excellent [CoreDNS](https://coredns.io/) DNS server, a composite [blacklist](https://github.com/StevenBlack/hosts) and CoreDNS's proxy capabilities to block users from ads, tracking, spyware, and malware content (currently blocks over 56K sites). In addition, alternate blacklists can be selected to also block porn, gambling, social media and fake news content. Since this works at the DNS level, it will work will all clients regardless of the OS, platform, browser and without the need for any browser plugins. The basic architecture is shown in the diagram below.
+This is a simple system that uses the excellent [CoreDNS](https://coredns.io/) DNS server, a composite [blacklist](https://github.com/StevenBlack/hosts) and CoreDNS's proxy capabilities to block users from ads, tracking, spyware, and malware content (currently blocks over 56K sites). In addition, alternate blacklists can be selected to also block porn, gambling, social media and fake news content. Since this works at the DNS level, it will work with all clients regardless of the OS, platform, browser and without the need for any plugins. The basic architecture is shown in the diagram below.
 
 ![](images/2018-10-14-12-08-36.png)
 
 ## Requirements
 
-To install DNS Shield you'll need a Linux server with tcp/udp port 53 open (might need to disable/stop local dnsmasq server to free up port 53). The install script has been tested with Ubuntu 16.04 and 18.04 but it should also work on CentOS 7.x or any other systemd based system.  You'll also need at least one downstream DNS server to proxy requests to (your institutions, or ISP's DNS server(s)).
+To install DNS Shield you'll need a Linux server with tcp/udp port 53 open (might need to disable/stop local dnsmasq server to free up port 53). The install script has been tested with Ubuntu 16.04 and 18.04 but it should also work on CentOS 7.x or any other systemd based system.  You'll also need at least one downstream DNS server to proxy requests to (your institution's, or ISP's DNS server(s)).
 
 ## Installation
 
